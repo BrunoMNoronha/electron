@@ -1,13 +1,17 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, Tray, BrowserWindow, ipcMain } = require('electron');
 const data = require('./data');
 
+let tray = null;
 let mainWindow = null;
+
 app.on('ready', function() {
 
     mainWindow = new BrowserWindow({
         width: 600,
         height: 400
     });
+
+    tray = new Tray('./src/img/icon.png');
 
     mainWindow.loadURL(`file://${__dirname}/src/windows/main.html`);
 });
