@@ -5,6 +5,7 @@ let imgs = ['../img/play-button.svg','../img/stop-button.svg'];
 let linkAbout = document.querySelector('#link-about');
 let btnPlay = document.querySelector('.btn-play');
 let time = document.querySelector('.time');
+let course = document.querySelector('.course');
 
 linkAbout.addEventListener('click', function() {
     ipcRenderer.send('open-window-about');
@@ -13,7 +14,7 @@ linkAbout.addEventListener('click', function() {
 let play = false;
 btnPlay.addEventListener('click', function() {
     if (play) {
-        stopwatch.stop();
+        stopwatch.stop(course.textContent);
         play = false;
     } else {
         stopwatch.start(time);

@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const data = require('./data');
 
 let mainWindow = null;
 app.on('ready', function() {
@@ -35,6 +36,11 @@ ipcMain.on('open-window-about', function() {
 
 ipcMain.on('close-window-about', function() {
     aboutWindow.close();
+});
+
+ipcMain.on('stop-course', function(event, course, studyDuration) {
+    console.log(`O curso ${course} foi estudado por ${studyDuration}`);
+    data.store(course, studyDuration);
 });
 
 app.on('window-all-closed', function() {

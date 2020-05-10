@@ -1,28 +1,26 @@
+const { ipcRenderer } = require('electron');
 const moment = require('moment');
 
-let seconds;
 let idInterval;
+let seconds;
+let time;
 
 module.exports = {
-
     start(element) {
-
-        clearInterval(idInterval);
-        
-        let time = moment.duration(element.textContent);
+        time = moment.duration(element.textContent);
         seconds = time.asSeconds();
-        let self = this;
-
-         // aqui eu posso utilizar uma rrow function para que o scopo
-         // do deste this fique disponivel dentro da função setInterval
-        idInterval = setInterval(function () {
+        clearInterval(idInterval);
+        idInterval = setInterval(() => {
             seconds++;
-            element.textContent = self.secondsToTime(seconds);
+            element.textContent = this.secondsToTime(seconds);
         }, 1000);
-    },stop() {
-        clearInterval(idInterval); 
 
-    },secondsToTime(seconds) {
+    }, stop(course) {
+        clearInterval(idInterval);
+        studyDuration = this.secondsToTime(seconds);
+        ipcRenderer.send('stop-course', course, studyDuration);
+
+    }, secondsToTime(seconds) {
         return moment().startOf('day').seconds(seconds).format('HH:mm:ss');
     }
 };  
