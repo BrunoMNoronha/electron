@@ -12,7 +12,6 @@ window.onload = () => {
     data.getData(course.textContent)
     .then((data) => {
         time.textContent = data.time;
-        console.log(data);
     })
 };
 
