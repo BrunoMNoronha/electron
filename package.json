@@ -1,0 +1,23 @@
+{
+  "name": "study-time",
+  "version": "1.0.0",
+  "description": "\"# electron\"",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrunoMNoronha/electron.git"
+  },
+  "author": "Bruno M Noronha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrunoMNoronha/electron/issues"
+  },
+  "homepage": "https://github.com/BrunoMNoronha/electron#readme",
+  "dependencies": {
+    "electron": "^1.6.1"
+  }
+}
