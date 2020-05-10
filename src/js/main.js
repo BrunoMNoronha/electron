@@ -1,11 +1,20 @@
 const { ipcRenderer } = require('electron');
 const stopwatch = require('../js/stopwatch');
+const data = require('../../data')
 
 let imgs = ['../img/play-button.svg','../img/stop-button.svg'];
 let linkAbout = document.querySelector('#link-about');
 let btnPlay = document.querySelector('.btn-play');
 let time = document.querySelector('.time');
 let course = document.querySelector('.course');
+
+window.onload = () => {
+    data.getData(course.textContent)
+    .then((data) => {
+        time.textContent = data.time;
+        console.log(data);
+    })
+};
 
 linkAbout.addEventListener('click', function() {
     ipcRenderer.send('open-window-about');

@@ -14,7 +14,13 @@ module.exports = {
                 })
         }
     },
+    getData(course) {
+
+        let fullFileName = __dirname + '/data/' + course + '.json';
+        return jsonfile.readFile(fullFileName);
+    },
     addTimeToCourse(fullFileName, studyDuration) {
+
         let data = {
             updateAt: new Date().toString(),
             time: studyDuration
@@ -28,6 +34,7 @@ module.exports = {
 
     },
     createFile(fileName, fileContent) {
+
         jsonfile.writeFile(fileName, fileContent)
             .then(() => {
                 console.log('Arquivo criado com sucesso.');
