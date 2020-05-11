@@ -1,10 +1,11 @@
-const { app, Tray, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const data = require('./data');
+const templateGenerator = require('./template');
 
 let tray = null;
 let mainWindow = null;
 
-app.on('ready', function() {
+app.on('ready', function () {
 
     mainWindow = new BrowserWindow({
         width: 600,
@@ -12,12 +13,15 @@ app.on('ready', function() {
     });
 
     tray = new Tray('./src/img/icon.png');
+    let template = templateGenerator.generateTemplateTray(mainWindow);
+    let trayMenu = Menu.buildFromTemplate(template);
+    tray.setContextMenu(trayMenu);
 
     mainWindow.loadURL(`file://${__dirname}/src/windows/main.html`);
 });
 
 let aboutWindow = null;
-ipcMain.on('open-window-about', function() {
+ipcMain.on('open-window-about', function () {
 
     if (!aboutWindow) {
         aboutWindow = new BrowserWindow({
@@ -30,7 +34,7 @@ ipcMain.on('open-window-about', function() {
             resizable: false
         });
 
-        aboutWindow.on('close', function() {
+        aboutWindow.on('close', function () {
             aboutWindow = null;
         });
     };
@@ -38,15 +42,15 @@ ipcMain.on('open-window-about', function() {
     aboutWindow.loadURL(`file://${__dirname}/src/windows/about.html`);
 });
 
-ipcMain.on('close-window-about', function() {
+ipcMain.on('close-window-about', function () {
     aboutWindow.close();
 });
 
-ipcMain.on('stop-course', function(event, course, studyDuration) {
+ipcMain.on('stop-course', function (event, course, studyDuration) {
     console.log(`O curso ${course} foi estudado por ${studyDuration}`);
     data.store(course, studyDuration);
 });
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
     app.quit();
 });
