@@ -43,9 +43,11 @@ module.exports = {
     },
     createFile(fileName, fileContent) {
 
-        jsonfile.writeFile(fileName, fileContent)
+        return jsonfile.writeFile(fileName, fileContent)
             .then(() => {
                 console.log('Arquivo criado com sucesso.');
+                console.log(fileName);
+                console.log(fileContent);
             })
             .catch(() => {
                 console.log('Ocorreu um erro ao criar o arquivo.');

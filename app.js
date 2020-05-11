@@ -21,7 +21,7 @@ app.on('ready', function () {
 });
 
 let aboutWindow = null;
-ipcMain.on('open-window-about', function () {
+ipcMain.on('open-window-about', () => {
 
     if (!aboutWindow) {
         aboutWindow = new BrowserWindow({
@@ -34,7 +34,7 @@ ipcMain.on('open-window-about', function () {
             resizable: false
         });
 
-        aboutWindow.on('close', function () {
+        aboutWindow.on('close', () => {
             aboutWindow = null;
         });
     };
@@ -46,10 +46,17 @@ ipcMain.on('close-window-about', function () {
     aboutWindow.close();
 });
 
-ipcMain.on('stop-course', function (event, course, studyDuration) {
+ipcMain.on('stop-course',  (event, course, studyDuration) => {
     console.log(`O curso ${course} foi estudado por ${studyDuration}`);
     data.store(course, studyDuration);
 });
+
+ipcMain.on('course-added', (event, newCourse) => {
+    let newTemplate = templateGenerator.addCourseTray(newCourse, mainWindow);
+    let newTrayMenu = Menu.buildFromTemplate(newTemplate);
+    tray.setContextMenu(newTrayMenu);
+    
+})
 
 app.on('window-all-closed', function () {
     app.quit();

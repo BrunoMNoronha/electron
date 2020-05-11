@@ -17,12 +17,12 @@ window.onload = () => {
     })
 };
 
-linkAbout.addEventListener('click', function() {
+linkAbout.addEventListener('click', () => {
     ipcRenderer.send('open-window-about');
 });
 
 let play = false;
-btnPlay.addEventListener('click', function() {
+btnPlay.addEventListener('click', () => {
     if (play) {
         stopwatch.stop(course.textContent);
         play = false;
@@ -35,7 +35,7 @@ btnPlay.addEventListener('click', function() {
     btnPlay.src = imgs[0];
 });
 
-ipcRenderer.on('change-course', function(event, courseName) {
+ipcRenderer.on('change-course', (event, courseName) => {
     data.getData(courseName)
     .then((data) => {
         time.textContent = data.time;
@@ -43,10 +43,11 @@ ipcRenderer.on('change-course', function(event, courseName) {
     course.textContent = courseName;
 })
 
-btnAdd.addEventListener('click', function () {
+btnAdd.addEventListener('click', () => {
+
     let newCourse = fildAdd.value;
     course.textContent = newCourse;
     time.textContent = '00:00:00';
     fildAdd.value = '';
-
+    ipcRenderer.send('course-added', newCourse);
 });

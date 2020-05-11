@@ -1,7 +1,8 @@
 const data = require('./data');
 
 module.exports = {
-    generateTemplateTray(mainWindow){
+    initialTemplate: null,
+    generateTemplateTray(mainWindow) {
         let template = [
             {
                 label: 'Cursos'
@@ -13,7 +14,7 @@ module.exports = {
 
         let courses = data.getCoursesName();
         courses.forEach((course) => {
-            if(course) {
+            if (course) {
                 let menuItem = {
                     'label': course,
                     type: 'radio',
@@ -25,6 +26,19 @@ module.exports = {
             }
         });
 
+        this.initialTemplate = template;
         return template;
+    },
+    addCourseTray(course, mainWindow) {
+            this.initialTemplate.push({
+                'label': course,
+                type: 'radio',
+                checked: true,
+                click: () => {
+                    mainWindow.send('change-course', course);
+                }
+            })
+
+        return this.initialTemplate;
     }
 }
