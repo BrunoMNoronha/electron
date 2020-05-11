@@ -17,6 +17,10 @@ app.on('ready', function () {
     let trayMenu = Menu.buildFromTemplate(template);
     tray.setContextMenu(trayMenu);
 
+    let templateMenu = templateGenerator.generateTemplateMenu(app);
+    let mainMenu = Menu.buildFromTemplate(templateMenu);
+    Menu.setApplicationMenu(mainMenu);
+
     mainWindow.loadURL(`file://${__dirname}/src/windows/main.html`);
 });
 
