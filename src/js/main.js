@@ -44,10 +44,13 @@ btnPlay.addEventListener('click', () => {
 });
 
 ipcRenderer.on('change-course', (event, courseName) => {
+    stopwatch.stop(course.textContent);
     data.getData(courseName)
         .then((data) => {
             time.textContent = data.time;
-        })
+        }).catch((error) => {
+            time.textContent = '00:00:00'
+        });
     course.textContent = courseName;
 });
 
@@ -57,6 +60,10 @@ ipcRenderer.on('shortcut-play-stop', () => {
 });
 
 btnAdd.addEventListener('click', () => {
+
+    if (fildAdd.value == '') {
+        return;
+    }
 
     let newCourse = fildAdd.value;
     course.textContent = newCourse;
