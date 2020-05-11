@@ -73,7 +73,8 @@ module.exports = {
                         label: 'About',
                         click: () => {
                             ipcMain.emit('open-window-about');
-                        }
+                        },
+                        accelerator: 'CmdOrCtrl+I'
                     }
                 ]
             }

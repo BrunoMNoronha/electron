@@ -1,6 +1,6 @@
 const { ipcRenderer } = require('electron');
 const stopwatch = require('../js/stopwatch');
-const data = require('../../data')
+const data = require('../../data');
 
 let imgs = ['../img/play-button.svg','../img/stop-button.svg'];
 let linkAbout = document.querySelector('#link-about');
@@ -41,7 +41,12 @@ ipcRenderer.on('change-course', (event, courseName) => {
         time.textContent = data.time;
     })
     course.textContent = courseName;
-})
+});
+
+ipcRenderer.on('shortcut-play-stop', () => {
+    let click = new MouseEvent('click');
+    btnPlay.dispatchEvent(click);
+});
 
 btnAdd.addEventListener('click', () => {
 

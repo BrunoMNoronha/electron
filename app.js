@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut } = require('electron');
 const data = require('./data');
 const templateGenerator = require('./template');
 
@@ -20,6 +20,10 @@ app.on('ready', function () {
     let templateMenu = templateGenerator.generateTemplateMenu(app);
     let mainMenu = Menu.buildFromTemplate(templateMenu);
     Menu.setApplicationMenu(mainMenu);
+
+    globalShortcut.register('CmdOrCtrl+Shift+S', () => {
+        mainWindow.send('shortcut-play-stop');
+    });
 
     mainWindow.loadURL(`file://${__dirname}/src/windows/main.html`);
 });
