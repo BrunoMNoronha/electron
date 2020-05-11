@@ -1,4 +1,4 @@
-![Study Timer](https://i.ibb.co/XV776jz/study-timer.png "Study Timer")
+![Study Timer](https://media-exp1.licdn.com/dms/image/C4E22AQEQy8DTfp510g/feedshare-shrink_800/0?e=1591833600&v=beta&t=_h6kH8Nnw8IYo74BLRSNx4ca0NTEK7OykK6LA2a4oBQ "Study Timer")
 
 # Study Time
 
