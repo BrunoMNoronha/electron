@@ -2,7 +2,7 @@ const { ipcRenderer } = require('electron');
 const stopwatch = require('../js/stopwatch');
 const data = require('../../data');
 
-let imgs = ['../img/play-button.svg','../img/stop-button.svg'];
+let imgs = ['../img/play-button.svg', '../img/stop-button.svg'];
 let linkAbout = document.querySelector('#link-about');
 let btnPlay = document.querySelector('.btn-play');
 let time = document.querySelector('.time');
@@ -12,9 +12,9 @@ let fildAdd = document.querySelector('.fild-add');
 
 window.onload = () => {
     data.getData(course.textContent)
-    .then((data) => {
-        time.textContent = data.time;
-    })
+        .then((data) => {
+            time.textContent = data.time;
+        })
 };
 
 linkAbout.addEventListener('click', () => {
@@ -25,9 +25,17 @@ let play = false;
 btnPlay.addEventListener('click', () => {
     if (play) {
         stopwatch.stop(course.textContent);
+        new Notification('Stop', {
+            body: `Você interrompeu o estudos de ${course.textContent}.`,
+            icon: '../img/stop-button.png'
+        })
         play = false;
     } else {
         stopwatch.start(time);
+        new Notification('Play', {
+            body: `Você iniciou o estudo de ${course.textContent}.`,
+            icon: '../img/play-button.png'
+        });
         play = true;
     }
 
@@ -37,9 +45,9 @@ btnPlay.addEventListener('click', () => {
 
 ipcRenderer.on('change-course', (event, courseName) => {
     data.getData(courseName)
-    .then((data) => {
-        time.textContent = data.time;
-    })
+        .then((data) => {
+            time.textContent = data.time;
+        })
     course.textContent = courseName;
 });
 
